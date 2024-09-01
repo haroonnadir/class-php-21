@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data from REST API</title>
+</head>
+<body>
+    <h1>API Data</h1>
+    <ul id="data-list"></ul>
+    <script>
+        // API URL
+        const apiUrl = 'https://api.example.com/data';
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Process and display data
+                const dataList = document.getElementById('data-list');
+                data.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Name: ${item.name}, Value: ${item.value}`;
+                    dataList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    </script>
+</body>
+</html>

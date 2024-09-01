@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data from REST API</title>
+</head>
+<body>
+    <h1>API Data</h1>
+    <ul id="data-list"></ul>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // API URL
+        const apiUrl = 'https://api.example.com/data';
+
+        // Fetch data from the API
+        axios.get(apiUrl)
+            .then(response => {
+                // Process and display data
+                const data = response.data;
+                const dataList = document.getElementById('data-list');
+                data.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Name: ${item.name}, Value: ${item.value}`;
+                    dataList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the axios request:', error);
+            });
+    </script>
+</body>
+</html>

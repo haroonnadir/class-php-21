@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Data to REST API</title>
+</head>
+<body>
+    <h1>Submit Data</h1>
+    <form id="data-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="value">Value:</label>
+        <input type="number" id="value" name="value" required>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('name').value;
+            const value = document.getElementById('value').value;
+            // API URL for creating data
+            const apiUrl = 'https://api.example.com/create';
+            // Send data to the API
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: name, value: value })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
